@@ -57,6 +57,8 @@ class DelayReproduceTest {
         downloadContentAndMeasure("/content", "body2");
     }
 
+    // HTTPS tests here
+
     private void downloadContentAndMeasure(String urlDir, String expectedBody) throws IOException {
         final long start = System.currentTimeMillis();
 
