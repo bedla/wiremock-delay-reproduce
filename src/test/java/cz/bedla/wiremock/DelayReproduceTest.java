@@ -53,7 +53,7 @@ class DelayReproduceTest {
 
         wireMockServer.stubFor(get(urlEqualTo("/timeout"))
                 .willReturn(aResponse()
-                        .withFixedDelay(10 * 1000)
+                        .withFixedDelay(2 * 10 * 1000)
                         .withBody("body1")));
 
         downloadContentAndMeasure("/timeout", null);
@@ -88,8 +88,8 @@ class DelayReproduceTest {
         try {
             final String url = "http://localhost:" + wireMockServer.port() + urlDir;
             final HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setConnectTimeout(6 * 1000);
-            connection.setReadTimeout(3 * 1000);
+            connection.setConnectTimeout(2 * 6 * 1000);
+            connection.setReadTimeout(2 * 3 * 1000);
             connection.setDoInput(true);
             if (expectedBody == null) {
                 assertThrows(SocketTimeoutException.class, () -> httpGetContent(connection));
