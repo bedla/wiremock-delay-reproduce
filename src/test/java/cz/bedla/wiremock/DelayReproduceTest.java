@@ -30,7 +30,9 @@ class DelayReproduceTest {
     void setUp() {
         wireMockServer = new WireMockServer(options()
                 .dynamicPort()
-                .dynamicHttpsPort() // <<--- un/comment this line
+                .dynamicHttpsPort() // <<--- un/comment this and following configuration lines
+                .jettyAcceptors(3) // one for HTTP, one for HTTPS, last for "content test" when HTTP is in sleep
+                .containerThreads(13) // to conform with jetty thread count checks (for 8 core system)
         );
         wireMockServer.start();
     }
